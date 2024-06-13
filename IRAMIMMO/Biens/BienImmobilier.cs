@@ -57,26 +57,33 @@ namespace IRAMIMMO.Biens
 
         public double PrixNetVendeur
         {
-            get => _prixNetVendeur;
+            get => _prixNetVendeur; // Retourne la valeur actuelle de _prixNetVendeur
             set
             {
-                if (CheckValue(value))
+                // Vérifie si la nouvelle valeur est différente de l'ancienne valeur
+                if (_prixNetVendeur != value)
                 {
-                    _prixNetVendeur = value;
+                    // Vérifie si la nouvelle valeur est supérieure ou égale à PRIX_MIN
+                    if (CheckValue(value))
+                    {
+                        // Si la nouvelle valeur est valide, elle est assignée à _prixNetVendeur
+                        _prixNetVendeur = value;
+                    }
+                    else
+                    {
+                        // Si la nouvelle valeur est inférieure à PRIX_MIN, assigne PRIX_MIN à _prixNetVendeur
+                        _prixNetVendeur = PRIX_MIN;
+                    }
+                    // Calcule la commission basée sur le nouveau prix net vendeur
                     CalculCommission();
+                    // Calcule le prix de vente total TTC (toutes charges comprises)
                     CalculPrixVenteTotal();
+                    // Notifie que la propriété PrixNetVendeur a changé
                     OnPropertyChanged(nameof(PrixNetVendeur));
-
                 }
-                else 
-                {
-                    _prixNetVendeur = 0.0;
-
-                }
-
             }
-
         }
+
 
         public double CommissionAgence
         {
