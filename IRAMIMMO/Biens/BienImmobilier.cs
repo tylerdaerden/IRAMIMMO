@@ -71,6 +71,7 @@ namespace IRAMIMMO.Biens
                 else 
                 {
                     _prixNetVendeur = 0.0;
+
                 }
 
             }
@@ -127,7 +128,7 @@ namespace IRAMIMMO.Biens
 
         public void  CalculPrixVenteTotal()
         {
-            _prixVenteCC = _prixNetVendeur + _commissionAgence;
+            PrixVenteCC = PrixNetVendeur + CommissionAgence;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
