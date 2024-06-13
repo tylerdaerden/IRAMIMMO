@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRAMIMMO.Utilities.Check;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IRAMIMMO.Biens
 {
-    public class BienImmobilier
+    public class BienImmobilier : INotifyPropertyChanged
     {
         //implémentation de INotifyPropertyChanged ↓↓↓
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -19,9 +20,9 @@ namespace IRAMIMMO.Biens
         private const double PCT_COMMISSION = 5.0;
         private const double PRIX_MIN = 5000.0;
         private string _nomProprio;
-        private double _prixNetCNC;
+        private double _prixNetVendeur;
         private double _commissionAgence;
-        private double _prixdeventeCC;
+        private double _prixVenteCC;
 
         #endregion
 
@@ -30,9 +31,9 @@ namespace IRAMIMMO.Biens
         public BienImmobilier(string nomproprio, double prixnet)
         {
             NomProprio = nomproprio;
-            PrixNetCNC = prixnet;
-            //CommissionAgence = CalculCommission();
-            //PrixVenteCC = CalculPrixVenteTotal();
+            PrixNetVendeur = prixnet;
+            CalculCommission();
+            CalculPrixVenteTotal();
         }
 
         #endregion
@@ -44,25 +45,34 @@ namespace IRAMIMMO.Biens
             get => _nomProprio;
             set
             {
-                _nomProprio = value;
+                if (CheckTools.CheckEntryName(value))
+                {
+                    _nomProprio = value;
+                }
+
                 OnPropertyChanged(nameof(NomProprio));
             }
 
         }
 
-        public double PrixNetCNC
+        public double PrixNetVendeur
         {
-            get => _prixNetCNC;
+            get => _prixNetVendeur;
             set
             {
                 if (CheckValue(value))
                 {
-                    _prixNetCNC = value;
+                    _prixNetVendeur = value;
                     CalculCommission();
                     CalculPrixVenteTotal();
-                    OnPropertyChanged(nameof(PrixNetCNC));
+                    OnPropertyChanged(nameof(PrixNetVendeur));
 
                 }
+                else 
+                {
+                    _prixNetVendeur = 0.0;
+                }
+
             }
 
         }
@@ -80,38 +90,44 @@ namespace IRAMIMMO.Biens
 
         public double PrixVenteCC
         {
-            get => _prixdeventeCC;
+            get => _prixVenteCC;
             set
             {
-                _prixdeventeCC = value;
+                _prixVenteCC = value;
                 OnPropertyChanged(nameof(PrixVenteCC));
 
             }
         }
+
+        public virtual string BienProprio => _nomProprio;
 
         #endregion
 
 
         #region Methodes
 
-        public bool CheckValue(double prixventenet)
+        public static bool CheckValue(double prixventenet)
         {
+            if(prixventenet >= PRIX_MIN)
+            {
+                return true;
+            }
 
-            return (prixventenet <= PRIX_MIN);
+            return false;
+
         }
 
         public virtual void CalculCommission()
         {
-            if (CheckValue(_prixNetCNC))
-            {
-                _commissionAgence = _prixNetCNC * (PCT_COMMISSION / 100);
-            }
+
+                CommissionAgence = PrixNetVendeur * (PCT_COMMISSION / 100.0);
+ 
 
         }
 
-        public void CalculPrixVenteTotal()
+        public void  CalculPrixVenteTotal()
         {
-            _prixdeventeCC = _prixNetCNC + CommissionAgence;
+            _prixVenteCC = _prixNetVendeur + _commissionAgence;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -14,17 +14,17 @@ namespace IRAMIMMO.ViewModel
 
 
 
-        public MainPageViewModel(DataAccess dataAccess)
+        public MainPageViewModel(DataAccess dataAccessService)
         {
-            DataAccess = dataAccess;
-            BiensEnVente = dataAccess.GetBiensEnVente();
+            dataAccess = dataAccessService;
+            BiensImmoEnVente = dataAccess.GetBiensEnVente();
 
         }
 
 
-        private DataAccess DataAccess;
+        private DataAccess dataAccess;
 
-        public BiensEnVente BiensEnVente { get; set; }
+        public BiensEnVente BiensImmoEnVente { get; set; }
 
         [ObservableProperty]
         private BienImmobilier bienUserSelection;

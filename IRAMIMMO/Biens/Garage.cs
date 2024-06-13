@@ -14,11 +14,12 @@ namespace IRAMIMMO.Biens
         private const double PCT_GARAGE = 10.0;
         private const double FORFAIT_COMM = 500.0;
         private bool _voletelectrique;
+        private const string TYPE_BIEN = "Garage";
 
         #endregion
 
 
-        #region Attributs
+        #region Constructeur
 
         public Garage(string nomproprio, float prixnet, bool voletelectrique) : base(nomproprio, prixnet)
         {
@@ -43,9 +44,11 @@ namespace IRAMIMMO.Biens
         public override void CalculCommission()
         {
 
-            CommissionAgence = FORFAIT_COMM + (PCT_GARAGE / 100);
+            CommissionAgence = FORFAIT_COMM + ( PrixNetVendeur * (PCT_GARAGE / 100));
 
         }
+
+        public override string BienProprio => $" {TYPE_BIEN} {NomProprio} ";
 
 
 

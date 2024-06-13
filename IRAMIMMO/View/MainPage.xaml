@@ -38,9 +38,9 @@
                     HorizontalOptions="Start"
                 />
                 <Picker 
-                    ItemsSource="{Binding BiensEnVente}" 
-                    ItemDisplayBinding ="{Binding NomProprio}" 
-                    SelectedItem="{Binding bienUserSelection}"
+                    ItemsSource="{Binding BiensImmoEnVente}" 
+                    ItemDisplayBinding ="{Binding BienProprio}" 
+                    SelectedItem="{Binding BienUserSelection}"
                     WidthRequest="250"
                     HorizontalOptions="Start"  
                 />
@@ -52,7 +52,7 @@
                     HorizontalOptions="Start"
                 />
                 <Entry
-                    Text="{Binding bienUserSelection.NomProprio}"
+                    Text="{Binding BienUserSelection.NomProprio}"
                     HorizontalOptions="Start"
                     WidthRequest="250"
                 />
@@ -61,7 +61,7 @@
                     HorizontalOptions="Start"
                 />
                 <Entry 
-                    Text="{Binding bienUserSelection.PrixNetCNC}"
+                    Text="{Binding BienUserSelection.PrixNetVendeur}"
                     HorizontalOptions="Start"
                     WidthRequest="250"
                 />
@@ -73,7 +73,7 @@
                     HorizontalOptions="Start"
                 />
                 <Label 
-                    Text="{Binding bienUserSelection.CommissionAgence}"
+                    Text="{Binding BienUserSelection.CommissionAgence}"
                     HorizontalOptions="Start"
                     WidthRequest="250"
                 />
@@ -82,7 +82,7 @@
                     HorizontalOptions="Start"
                 />
                 <Label 
-                    Text="{Binding bienUserSelection.PrixVenteCC}" 
+                    Text="{Binding BienUserSelection.PrixVenteCC}" 
                     HorizontalOptions="Start"
                     WidthRequest="250"
                 />

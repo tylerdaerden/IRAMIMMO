@@ -1,4 +1,5 @@
-﻿using IRAMIMMO.ViewModel;
+﻿using IRAMIMMO.Utilities;
+using IRAMIMMO.ViewModel;
 
 namespace IRAMIMMO
 {
@@ -7,14 +8,16 @@ namespace IRAMIMMO
 
 
 
-        public MainPage(MainPageViewModel mainPageVM)
+        public MainPage(MainPageViewModel mainPageVM, DataAccess dataAccessService)
         {
             mainPageViewModel = mainPageVM;
             BindingContext = mainPageVM;
+            dataAccess = dataAccessService;
             InitializeComponent();
 
         }
 
+        private DataAccess dataAccess;
 
         private MainPageViewModel mainPageViewModel;
 

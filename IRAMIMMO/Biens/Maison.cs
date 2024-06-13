@@ -12,11 +12,12 @@ namespace IRAMIMMO.Biens
         #region Attributs
 
         private int _metreFacade;
+        private const string TYPE_BIEN = "Maison";
 
         #endregion
 
 
-        #region Attributs
+        #region Constructeur
 
         public Maison(string nomproprio, double prixnet, int metrefacade) : base(nomproprio, prixnet)
         {
@@ -35,6 +36,8 @@ namespace IRAMIMMO.Biens
             get => _metreFacade;
             set => _metreFacade = value;
         }
+
+        public override string BienProprio => $" {TYPE_BIEN} {NomProprio} ";
 
         #endregion
 
